@@ -8,4 +8,8 @@
    :body "Hello, world!"})
 
 
+(defn -main [& args]
+  (println "Hello world!"))
+
+
 (ae/def-appengine-app notaskinnerbox-app #'notaskinnerbox-app-handler)
