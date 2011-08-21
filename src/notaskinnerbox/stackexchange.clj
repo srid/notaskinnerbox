@@ -18,6 +18,19 @@
     (to-byte-array in)))
 
 
+(defn parse-questions-json
+  [j]
+  (map #(select-keys % [:title :question_url]) (:questions j)))
+
+
+(defn top-posts-last-week-raw
+  [site]
+   (slurp (curl-gzip (top-posts-url site))))
+
+
 (defn top-posts-last-week
   [site]
-  (read-json (slurp (curl-gzip (top-posts-url site)))))
+  (parse-questions-json
+   (read-json (top-posts-last-week-raw site))))
+
+
