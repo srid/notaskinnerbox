@@ -21,16 +21,14 @@
   (let [opts (parse-args args)]
     (if (:json opts)
       (println (sx/top-posts-last-week-raw (:site opts)))
-      (loop [items (sx/top-posts-last-week  (:site opts))
-             idx (iterate inc 1)]
-        (if items
+      (loop [[item & items] (sx/top-posts-last-week  (:site opts))
+             [idx & indices] (iterate inc 1)]
+        (if item
           (do
-            (println (str (first idx) ") " (:title (first items))))
+            (println (str idx ") " (:title item)))
             (println (str "  http://stackoverflow.com/questions/"
-                          (:question_id (first items))))
-            (println)
-            (println)
-            (recur (next items) (next idx))))))))
+                          (:question_id item)))
+            (recur items indices)))))))
 
 
 (ae/def-appengine-app notaskinnerbox-app #'notaskinnerbox-app-handler)
