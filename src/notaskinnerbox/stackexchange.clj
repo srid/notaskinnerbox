@@ -20,7 +20,7 @@
 
 (defn parse-questions-json
   [j]
-  (map #(select-keys % [:title :question_url]) (:questions j)))
+  (map #(select-keys % [:title :question_id]) (:questions j)))
 
 
 (defn top-posts-last-week-raw
