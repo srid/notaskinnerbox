@@ -2,12 +2,29 @@
   (:use [clojure.data.json :only (read-json)]
         [clojure.contrib.io :only (to-byte-array)])
   (:import [java.util.zip GZIPInputStream]
-           [java.net URL]))
+           [java.net URL]
+           [java.util Date]))
+
+
+(defn now
+  []
+  (-> (Date.) (.getTime)))
+
+
+(defn n-days-timestamp
+  [n]
+  (do
+    (println n)
+    (* n 1000 60 60 24)))
 
 
 (defn top-posts-url
-  [site]
-  "http://api.stackoverflow.com/1.1/questions?fromdate=1313203687&sort=votes&tagged=clojure")
+  [site n]
+  (let [fromdate (long (/ (- (now) (n-days-timestamp n)) 1000))]
+    ;; `site` is being ignored for now
+    (str "http://api.stackoverflow.com/1.1/questions?fromdate="
+         fromdate
+         "&sort=votes&tagged=clojure")))
 
 
 (defn curl-gzip
@@ -23,14 +40,14 @@
   (map #(select-keys % [:title :question_id]) (:questions j)))
 
 
-(defn top-posts-last-week-raw
-  [site]
-   (slurp (curl-gzip (top-posts-url site))))
+(defn top-posts-raw
+  [site n]
+   (slurp (curl-gzip (top-posts-url site n))))
 
 
-(defn top-posts-last-week
-  [site]
+(defn top-posts
+  [site n]
   (parse-questions-json
-   (read-json (top-posts-last-week-raw site))))
+   (read-json (top-posts-raw site n))))
 
 

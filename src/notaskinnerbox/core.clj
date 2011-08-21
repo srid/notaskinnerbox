@@ -11,17 +11,19 @@
 
 (defn parse-args [args]
   (cli args
-       (required ["-s", "--site", "StackExchange site to operate upon"
+       (optional ["-s", "--site", "StackExchange site to operate upon"
                   :default "stackoverflow"]
                  #(String. %))
+       (optional ["-n", "--days", "Show top posts from last N days" :default 7]
+                 #(Integer. %))
        (optional ["--json", "Dump JSON response from server" :default false])))
 
 
 (defn -main [& args]
   (let [opts (parse-args args)]
     (if (:json opts)
-      (println (sx/top-posts-last-week-raw (:site opts)))
-      (loop [[item & items] (sx/top-posts-last-week  (:site opts))
+      (println (sx/top-posts-raw (:site opts) (:days opts)))
+      (loop [[item & items] (sx/top-posts (:site opts) (:days opts))
              [idx & indices] (iterate inc 1)]
         (if item
           (do
