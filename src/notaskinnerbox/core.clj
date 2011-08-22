@@ -12,7 +12,10 @@
 (defn parse-args [args]
   (cli args
        (optional ["-s", "--site", "StackExchange site to operate upon"
-                  :default "stackoverflow"]
+                  :default "stackoverflow.com"]
+                 #(String. %))
+       (optional ["-t", "--tag", "Question tag"
+                  :default "clojure"]
                  #(String. %))
        (optional ["-n", "--days", "Show top posts from last N days" :default 7]
                  #(Integer. %))
@@ -22,13 +25,15 @@
 (defn -main [& args]
   (let [opts (parse-args args)]
     (if (:json opts)
-      (println (sx/top-posts-raw (:site opts) (:days opts)))
-      (loop [[item & items] (sx/top-posts (:site opts) (:days opts))
+      (println (sx/top-posts-raw
+                (:site opts) (:tag opts) (:days opts)))
+      (loop [[item & items] (sx/top-posts
+                             (:site opts) (:tag opts) (:days opts))
              [idx & indices] (iterate inc 1)]
         (if item
           (do
             (println (str idx ") " (:title item)))
-            (println (str "  http://stackoverflow.com/questions/"
+            (println (str "  http://" (:site opts) "/questions/"
                           (:question_id item)))
             (recur items indices)))))))
 

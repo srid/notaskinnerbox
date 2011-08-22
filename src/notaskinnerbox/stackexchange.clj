@@ -13,18 +13,19 @@
 
 (defn n-days-timestamp
   [n]
-  (do
-    (println n)
-    (* n 1000 60 60 24)))
+  (* n 1000 60 60 24))
 
 
 (defn top-posts-url
-  [site n]
+  [site tag n]
   (let [fromdate (long (/ (- (now) (n-days-timestamp n)) 1000))]
     ;; `site` is being ignored for now
-    (str "http://api.stackoverflow.com/1.1/questions?fromdate="
+    (str "http://api."
+         site
+         "/1.1/questions?fromdate="
          fromdate
-         "&sort=votes&tagged=clojure")))
+         "&sort=votes&tagged="
+         tag)))
 
 
 (defn curl-gzip
@@ -41,13 +42,13 @@
 
 
 (defn top-posts-raw
-  [site n]
-   (slurp (curl-gzip (top-posts-url site n))))
+  [site tag n]
+   (slurp (curl-gzip (top-posts-url site tag n))))
 
 
 (defn top-posts
-  [site n]
+  [site tag n]
   (parse-questions-json
-   (read-json (top-posts-raw site n))))
+   (read-json (top-posts-raw site tag n))))
 
 
