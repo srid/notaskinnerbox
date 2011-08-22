@@ -14,8 +14,8 @@
        (optional ["-s", "--site", "StackExchange site to operate upon"
                   :default "stackoverflow.com"]
                  #(String. %))
-       (optional ["-t", "--tag", "Question tag"
-                  :default "clojure"]
+       (optional ["-t", "--tag", "Prune by tag"
+                  :default ""]
                  #(String. %))
        (optional ["-n", "--days", "Show top posts from last N days" :default 7]
                  #(Integer. %))
@@ -33,8 +33,12 @@
         (if item
           (do
             (println (str idx ") " (:title item)))
-            (println (str "  http://" (:site opts) "/questions/"
-                          (:question_id item)))
+            (println (str "   "
+                          "http://"
+                          (:site opts)
+                          "/questions/"
+                          (:question_id item)
+                          "\n"))
             (recur items indices)))))))
 
 

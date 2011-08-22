@@ -19,7 +19,6 @@
 (defn top-posts-url
   [site tag n]
   (let [fromdate (long (/ (- (now) (n-days-timestamp n)) 1000))]
-    ;; `site` is being ignored for now
     (str "http://api."
          site
          "/1.1/questions?fromdate="
