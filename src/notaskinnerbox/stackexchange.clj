@@ -21,7 +21,7 @@
   "Wrapper around java.net.URLEncoder returning a (UTF-8) URL encoded
 representation of text."
   [text]
-  (URLEncoder/encode text "UTF-8"))
+  (URLEncoder/encode (name text) "UTF-8"))
 
 
 (defn- encode-body-map
@@ -37,10 +37,10 @@ representation of text."
           (long (/ (- (now) (n-days-timestamp n)) 1000))
           "")]
     (str "http://api." site "/1.1/questions??"
-         (encode-body-map {"fromdate" (str fromdate)
-                           "sort" "votes"
-                           "tagged" (str tag)
-                           "pagesize" "15"}))))
+         (encode-body-map {:fromdate (str fromdate)
+                           :sort "votes"
+                           :tagged (str tag)
+                           :pagesize "15"}))))
 
 
 (defn- curl-gzip
