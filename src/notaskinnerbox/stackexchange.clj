@@ -43,7 +43,7 @@ representation of text."
                                      "")
                          :sort "votes"
                          :tagged (str tag)
-                         :pagesize "15"})))
+                         :pagesize "30"})))
 
 
 (defn- curl-gzip
@@ -57,7 +57,7 @@ representation of text."
 
 (defn- parse-questions-json
   [j]
-  (map #(select-keys % [:title :question_id]) (:questions j)))
+  (:questions j))
 
 
 (defn top-posts-raw
