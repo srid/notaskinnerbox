@@ -31,19 +31,23 @@ representation of text."
 
 
 (defn- top-posts-url
+  "Return the API url for top votted posts from `site` tagged `tag` during last
+  `n` days
+
+  Ignore `n` when `n` is zero."
   [site tag n]
-  (let [fromdate
-        (if (> n 0)
-          (long (/ (- (now) (n-days-timestamp n)) 1000))
-          "")]
-    (str "http://api." site "/1.1/questions??"
-         (encode-body-map {:fromdate (str fromdate)
-                           :sort "votes"
-                           :tagged (str tag)
-                           :pagesize "15"}))))
+  (str "http://api." site "/1.1/questions??"
+       (encode-body-map {:fromdate (str (if (> n 0)
+                                          (long (/ (- (now) (n-days-timestamp n))
+                                                   1000)))
+                                        "")
+                         :sort "votes"
+                         :tagged (str tag)
+                         :pagesize "15"})))
 
 
 (defn- curl-gzip
+  "Fetch the given URL and always gzip-decompress the response"
   [url]
   "cat an URL as gzip stream"
   (with-open
