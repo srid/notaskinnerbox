@@ -1,9 +1,9 @@
 (ns notaskinnerbox.routes
   (:use compojure.core
         notaskinnerbox.views
+        ring.adapter.jetty
         [hiccup.middleware :only (wrap-base-url)])
-  (:require [appengine-magic.core :as ae]
-            [compojure.route :as route]
+  (:require [compojure.route :as route]
             [compojure.response :as response]
             [notaskinnerbox.stackexchange :as sx]))
 
@@ -21,5 +21,8 @@
   (route/not-found "Page not found"))
 
 
-(ae/def-appengine-app notaskinnerbox-app #'app-handler)
-
+;; for heroku
+(defn -main []
+  (let [port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]
+    (println (str "Starting at " port))
+    (run-jetty app-handler {:port port})))
