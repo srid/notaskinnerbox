@@ -7,12 +7,12 @@
            [java.util Date]))
 
 
-(defn now
+(defn- now
   []
   (-> (Date.) (.getTime)))
 
 
-(defn n-days-timestamp
+(defn- n-days-timestamp
   [n]
   (* n 1000 60 60 24))
 
@@ -30,7 +30,7 @@ representation of text."
   (join "&" (map #(join "=" (map url-encode %)) body)))
 
 
-(defn top-posts-url
+(defn- top-posts-url
   [site tag n]
   (let [fromdate
         (if (> n 0)
@@ -39,10 +39,11 @@ representation of text."
     (str "http://api." site "/1.1/questions??"
          (encode-body-map {"fromdate" (str fromdate)
                            "sort" "votes"
-                           "tagged" (str tag)}))))
+                           "tagged" (str tag)
+                           "pagesize" "15"}))))
 
 
-(defn curl-gzip
+(defn- curl-gzip
   [url]
   "cat an URL as gzip stream"
   (with-open
@@ -50,7 +51,7 @@ representation of text."
     (to-byte-array in)))
 
 
-(defn parse-questions-json
+(defn- parse-questions-json
   [j]
   (map #(select-keys % [:title :question_id]) (:questions j)))
 
