@@ -2,7 +2,9 @@
 
   <application>notaskinnerbox</application>
   <version>1</version>
-  <static-files/>
+  <static-files>
+    <include path="/resources/**.css" />
+  </static-files>
   <resource-files/>
 
   <threadsafe>true</threadsafe>

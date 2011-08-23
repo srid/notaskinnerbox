@@ -1,12 +1,6 @@
 (ns notaskinnerbox.core
-  (:require [appengine-magic.core :as ae])
   (:require [notaskinnerbox.stackexchange :as sx])
   (:use [clojure.tools.cli :only (cli required optional)]))
-
-(defn notaskinnerbox-app-handler [request]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body "Hello, world!"})
 
 
 (defn parse-args [args]
@@ -41,5 +35,3 @@
                           "\n"))
             (recur items indices)))))))
 
-
-(ae/def-appengine-app notaskinnerbox-app #'notaskinnerbox-app-handler)
