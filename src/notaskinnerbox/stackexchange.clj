@@ -18,7 +18,10 @@
 
 (defn top-posts-url
   [site tag n]
-  (let [fromdate (long (/ (- (now) (n-days-timestamp n)) 1000))]
+  (let [fromdate
+        (if (> n 0)
+          (long (/ (- (now) (n-days-timestamp n)) 1000))
+          "")]
     (str "http://api."
          site
          "/1.1/questions?fromdate="
