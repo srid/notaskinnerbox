@@ -10,11 +10,11 @@
 
 (defroutes app-handler
   (GET "/" [] (index-page "stackoverflow.com" "" 7))
-  (GET ["/:site", :site #"[a-z\.]+"] [site]
+  (GET ["/se/:site", :site #"[a-z\.]+"] [site]
        (index-page site "" 7))
-  (GET ["/:site/:tag", :site #"[a-z\.]+"] [site tag]
+  (GET ["/se/:site/:tag", :site #"[a-z\.]+"] [site tag]
        (index-page site tag 7))
-  (GET ["/:site/:tag/:n", :site #"[a-z\.]+"] [site tag n]
+  (GET ["/se/:site/:tag/:n", :site #"[a-z\.]+"] [site tag n]
        (index-page site tag (. Integer parseInt n)))
 
   (route/resources "/")
