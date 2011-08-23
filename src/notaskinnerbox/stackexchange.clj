@@ -8,13 +8,14 @@
 
 
 (defn- now
+  "Return current timestamp in seconds"
   []
-  (-> (Date.) (.getTime)))
+  (long (/ (-> (Date.) (.getTime)) 1000)))
 
 
-(defn- n-days-timestamp
+(defn- days->seconds
   [n]
-  (* n 1000 60 60 24))
+  (* n 60 60 24))
 
 
 (defn- url-encode
@@ -36,11 +37,10 @@ representation of text."
 
   Ignore `n` when `n` is zero."
   [site tag n]
-  (str "http://api." site "/1.1/questions??"
-       (encode-body-map {:fromdate (str (if (> n 0)
-                                          (long (/ (- (now) (n-days-timestamp n))
-                                                   1000)))
-                                        "")
+  (str "http://api." site "/1.1/questions?"
+       (encode-body-map {:fromdate (if (> n 0)
+                                     (str (- (now) (days->seconds n)))
+                                     "")
                          :sort "votes"
                          :tagged (str tag)
                          :pagesize "15"})))
