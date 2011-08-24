@@ -5,7 +5,8 @@
                  [org.clojure/data.json "0.1.1"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [compojure "0.6.4"]
-                 [hiccup "0.3.6"]]
-  :dev-dependencies [[lein-ring "0.4.5"]]
+                 [hiccup "0.3.6"]
+                 [lein-ring "0.4.5"]]
+  :dev-dependencies []
   :ring {:handler notaskinnerbox.routes/app-handler}
   :main notaskinnerbox.core)
