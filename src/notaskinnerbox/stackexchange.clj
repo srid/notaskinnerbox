@@ -69,5 +69,3 @@ representation of text."
   [site tag n]
   (parse-questions-json
    (read-json (top-posts-raw site tag n))))
-
-

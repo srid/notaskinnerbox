@@ -9,4 +9,4 @@
                  [lein-ring "0.4.5"]]
   :dev-dependencies []
   :ring {:handler notaskinnerbox.routes/app-handler}
-  :main notaskinnerbox.core)
+  :main notaskinnerbox.routes)

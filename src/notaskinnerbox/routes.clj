@@ -21,8 +21,10 @@
   (route/not-found "Page not found"))
 
 
-;; for heroku
+;; for heroku/stackato
 (defn -main []
-  (let [port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]
+  (let [port (Integer/parseInt
+              (get (System/getenv) "VCAP_APP_PORT"
+                   (get (System/getenv) "PORT" "8080")))]
     (println (str "Starting at " port))
     (run-jetty app-handler {:port port})))
