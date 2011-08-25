@@ -18,7 +18,8 @@
   (html5
     [:head
      [:title (page-title site tag n)]
-     (include-css "/css/html5boilerplate.css")
+     (include-css "/css/lessframework.css")
+     (include-css "http://fonts.googleapis.com/css?family=Cantarell:400,700")
      (include-css "/css/style.css")]
     [:body
      [:h1 (page-title site tag n)]
