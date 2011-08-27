@@ -39,12 +39,13 @@ representation of text."
   Ignore `n` when `n` is zero."
   [site tag n]
   (str "http://api." site "/1.1/questions?"
-       (encode-body-map {:fromdate (if (> n 0)
-                                     (str (- (now) (days->seconds n)))
-                                     "")
-                         :sort "votes"
-                         :tagged (str tag)
-                         :pagesize "30"})))
+       (encode-body-map
+        (conj {:sort "votes"
+               :tagged (str tag)
+               :pagesize "30"}
+              (when (> n 0)
+                {:fromdate (str (- (now) (days->seconds n)))
+                 :todate (str (now))})))))
 
 
 (defn- curl-gzip
@@ -56,8 +57,8 @@ representation of text."
     (to-byte-array in)))
 
 
-(defn- parse-timestamps
-  "Parse timestamps in JSON into java.sql.Timestamp"
+(defn- convert-timestamps
+  "Convert numeric timestamps in JSON into java.sql.Timestamp"
   [json]
   (map (fn [q] (update-in q [:creation_date]
                           #(Timestamp. (* % 1000))))
@@ -66,7 +67,7 @@ representation of text."
 
 (defn- parse-questions-json
   [j]
-  (parse-timestamps (:questions j)))
+  (convert-timestamps (:questions j)))
 
 
 (defn top-posts-raw
