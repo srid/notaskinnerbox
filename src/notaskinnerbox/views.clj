@@ -27,7 +27,7 @@
      [:meta {:charset "UTF8"}]
      [:title (str title " - notaskinnersbox")]
      (include-css "/css/lessframework.css")
-     (include-css "http://fonts.googleapis.com/css?family=Cantarell:400,700")
+     (include-css "http://fonts.googleapis.com/css?family=PT+Sans+Caption")
      (include-css "/css/style.css")]
     [:body
      [:header

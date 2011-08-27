@@ -1,5 +1,12 @@
 body { 
-  font-family: 'Cantarell', sans-serif;
+  font-family: 'PT Sans Caption', sans-serif;
+}
+
+article a {
+  text-decoration: none;
+}
+article a:hover {
+  border-bottom: 2px solid;
 }
 
 h1 { 
