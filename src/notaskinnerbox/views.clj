@@ -46,11 +46,11 @@
   (base-page
    (page-title site tag n)
    (for [item (sx/top-posts site tag n)]
-     [:article
-      [:span (:score item)]
-      " "
-      (let [date (format-date (:creation_date item))]
-        [:time {:datetime date :pubDate "pubDate"} date])
-      " "
-      [:a {:href (item-url item site)} (:title item)]])))
+     (let [date (format-date (:creation_date item))]
+       [:article
+        [:span (:score item)]
+        " "
+        [:time {:datetime date :pubDate "pubDate"} date]
+        " "
+        [:a {:href (item-url item site)} (:title item)]]))))
    
