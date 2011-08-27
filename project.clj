@@ -6,7 +6,7 @@
                  [org.clojure/data.json "0.1.1"]
                  [compojure "0.6.4"]
                  [hiccup "0.3.6"]
-                 [lein-ring "0.4.5"]]
-  :dev-dependencies []
-  :ring {:handler notaskinnerbox.routes/app-handler}
+                 [ring "0.3.11"]]
+  :dev-dependencies [[lein-ring "0.4.5"]]
+  :ring {:handler notaskinnerbox.routes/app}
   :main notaskinnerbox.routes)
