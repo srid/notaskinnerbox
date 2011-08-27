@@ -4,6 +4,7 @@
         [clojure.contrib.io :only (to-byte-array)])
   (:import [java.util.zip GZIPInputStream]
            [java.net URL URLEncoder]
+           [java.sql Timestamp]
            [java.util Date]))
 
 
@@ -55,9 +56,17 @@ representation of text."
     (to-byte-array in)))
 
 
+(defn- parse-timestamps
+  "Parse timestamps in JSON into java.sql.Timestamp"
+  [json]
+  (map (fn [q] (update-in q [:creation_date]
+                          #(Timestamp. (* % 1000))))
+       json))
+
+
 (defn- parse-questions-json
   [j]
-  (:questions j))
+  (parse-timestamps (:questions j)))
 
 
 (defn top-posts-raw

@@ -2,7 +2,16 @@ body {
   font-family: 'Cantarell', sans-serif;
 }
 
-h1 {
-  text-align: center;
-  font-family: sans-serif;
+h1 { 
+
 }
+
+footer {
+  text-align:center;
+  clear:both
+}
+
+footer h1 {
+  font-size: 28px;
+}
+
