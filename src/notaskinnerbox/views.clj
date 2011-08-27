@@ -20,11 +20,12 @@
        (if (> n 0) (str " (" n " days)"))))
 
 
-(defn index-page [site tag n]
+(defn base-page
+  [title body]
   (html5
     [:head
      [:meta {:charset "UTF8"}]
-     [:title (page-title site tag n)]
+     [:title (str title " - notaskinnersbox")]
      (include-css "/css/lessframework.css")
      (include-css "http://fonts.googleapis.com/css?family=Cantarell:400,700")
      (include-css "/css/style.css")]
@@ -32,21 +33,24 @@
      [:header
       [:hgroup
        [:h1 "not a skinners box"]
-       [:h3 (page-title site tag n)]]]
-     [:section
-      (for [item (sx/top-posts site tag n)]
-        [:article
-         [:span (:score item)]
-         " "
-         (let [date (format-date (:creation_date item))]
-           [:time {:datetime date :pubDate "pubDate"} date])
-         " "
-         [:a {:href (item-url item site)} (:title item)]])]
+       [:h3 title]]]
+     [:section body]
      [:footer
       [:nav
        [:h1 "Navigation"]
        [:ul
         [:li [:a {:href "/"} "Home"]]]]]]))
+  
 
-
-
+(defn index-page [site tag n]
+  (base-page
+   (page-title site tag n)
+   (for [item (sx/top-posts site tag n)]
+     [:article
+      [:span (:score item)]
+      " "
+      (let [date (format-date (:creation_date item))]
+        [:time {:datetime date :pubDate "pubDate"} date])
+      " "
+      [:a {:href (item-url item site)} (:title item)]])))
+   
