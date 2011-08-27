@@ -19,11 +19,19 @@
   (* n 60 60 24))
 
 
+(defn- to-string
+  "Convert o to string as we expect"
+  [o]
+  (if (keyword? o)
+    (name o)
+    (str o)))
+
+
 (defn- url-encode
   "Wrapper around java.net.URLEncoder returning a (UTF-8) URL encoded
 representation of text."
   [text]
-  (URLEncoder/encode (name text) "UTF-8"))
+  (URLEncoder/encode (to-string text) "UTF-8"))
 
 
 (defn- encode-body-map
@@ -41,14 +49,14 @@ representation of text."
   (str "http://api." site "/1.1/questions?"
        (encode-body-map
         (conj {:sort "votes"
-               :tagged (str tag)
+               :tagged tag
                :pagesize "30"}
               (when (pos? n)
                 ;; ignore the last 5 days (arbitrary) to give new questions
                 ;; sufficient time to become popular (if at all)
                 (let [end-day (- (now) (days->seconds 5))]
-                  {:fromdate (str (- end-day (days->seconds n)))
-                   :todate (str end-day)}))))))
+                  {:fromdate (- end-day (days->seconds n))
+                   :todate end-day}))))))
 
 
 (defn- curl-gzip
