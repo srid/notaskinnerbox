@@ -9,16 +9,27 @@ article a:hover {
   border-bottom: 2px solid;
 }
 
-h1 { 
-
+header {
+  margin-bottom: 30px;
+}
+header h1 { 
+  border-bottom: 3px solid brown;
 }
 
+article {
+  margin-bottom: 0.3em;
+}
+article span.meta {
+  font-size: 75%;
+}
 footer {
-  text-align:center;
-  clear:both
+  text-align: left;
+  border-top: 3px solid gray;
+  margin-top: 30px;
+  color: #666666;
+  background-color: #1F1F1F;
+  padding: 5px;
 }
-
-footer h1 {
-  font-size: 28px;
+footer a, footer a:visited, footer a:active {
+  color: #666666;
 }
-

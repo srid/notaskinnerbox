@@ -25,21 +25,18 @@
   (html5
     [:head
      [:meta {:charset "UTF8"}]
-     [:title (str title " - notaskinnersbox")]
+     [:title (str title " - notaskinnerbox")]
      (include-css "/css/lessframework.css")
      (include-css "http://fonts.googleapis.com/css?family=PT+Sans+Caption")
      (include-css "/css/style.css")]
     [:body
      [:header
       [:hgroup
-       [:h1 "not a skinners box"]
+       [:h1 "not a skinner box"]
        [:h3 title]]]
      [:section body]
-     [:footer
-      [:nav
-       [:h1 "Navigation"]
-       [:ul
-        [:li [:a {:href "/"} "Home"]]]]]]))
+     [:footer "caffeinated play with clojure "
+      [:a {:href "https://github.com/srid/notaskinnerbox"} "on github"]]]))
   
 
 (defn index-page [site tag n]
@@ -48,9 +45,8 @@
    (for [item (sx/top-posts site tag n)]
      (let [date (format-date (:creation_date item))]
        [:article
-        [:span (:score item)]
-        " "
-        [:time {:datetime date :pubDate "pubDate"} date]
-        " "
-        [:a {:href (item-url item site)} (:title item)]]))))
+        [:a {:href (item-url item site)} (:title item)]
+        [:span {:class "meta"}
+         [:span " " [:b (:score item)] " votes; "]
+         [:span [:time {:datetime date :pubDate "pubDate"} date]]]]))))
    
