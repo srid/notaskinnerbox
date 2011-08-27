@@ -43,15 +43,19 @@ representation of text."
         (conj {:sort "votes"
                :tagged (str tag)
                :pagesize "30"}
-              (when (> n 0)
-                {:fromdate (str (- (now) (days->seconds n)))
-                 :todate (str (now))})))))
+              (when (pos? n)
+                ;; ignore the last 5 days (arbitrary) to give new questions
+                ;; sufficient time to become popular (if at all)
+                (let [end-day (- (now) (days->seconds 5))]
+                  {:fromdate (str (- end-day (days->seconds n)))
+                   :todate (str end-day)}))))))
 
 
 (defn- curl-gzip
   "Fetch the given URL and always gzip-decompress the response"
   [url]
   "cat an URL as gzip stream"
+  (println url)
   (with-open
       [in (-> url (URL.) (.openConnection) (.getInputStream) (GZIPInputStream.))]
     (to-byte-array in)))
