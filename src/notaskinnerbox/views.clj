@@ -25,11 +25,12 @@
   (html5
     [:head
      [:meta {:charset "UTF8"}]
+     [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
      [:title (str title " - notaskinnerbox")]
      (include-css "/css/lessframework.css")
      (include-css "http://fonts.googleapis.com/css?family=PT+Sans+Caption")
      (include-css "/css/style.css")]
-    [:body
+    [:body {:lang "en"}
      [:header
       [:hgroup
        [:h1 "not a skinner box"]

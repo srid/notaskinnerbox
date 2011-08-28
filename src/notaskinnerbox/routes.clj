@@ -14,9 +14,9 @@
   (GET "/" [] (index-page "stackoverflow.com" "" 7))
   (GET ["/se/:site", :site #"[a-z\.]+"] [site]
        (index-page site "" 7))
-  (GET ["/se/:site/:tag", :site #"[a-z\.]+"] [site tag]
-       (index-page site tag 7))
-  (GET ["/se/:site/:tag/:n", :site #"[a-z\.]+"] [site tag n]
+  (GET ["/se/:site/:n", :site #"[a-z\.]+"] [site tag n]
+       (index-page site "" (. Integer parseInt n)))
+  (GET ["/se/:site/:n/:tag", :site #"[a-z\.]+"] [site tag n]
        (index-page site tag (. Integer parseInt n)))
 
   (route/resources "/")

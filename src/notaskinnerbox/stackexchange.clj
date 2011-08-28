@@ -19,19 +19,17 @@
   (* n 60 60 24))
 
 
-(defn- to-string
-  "Convert o to string as we expect"
+(defn- str2
+  "A version of str that converts keywords leaving off the colon"
   [o]
-  (if (keyword? o)
-    (name o)
-    (str o)))
+  (if (keyword? o) (name o) (str o)))
 
 
 (defn- url-encode
   "Wrapper around java.net.URLEncoder returning a (UTF-8) URL encoded
 representation of text."
   [text]
-  (URLEncoder/encode (to-string text) "UTF-8"))
+  (URLEncoder/encode (str2 text) "UTF-8"))
 
 
 (defn- encode-body-map
