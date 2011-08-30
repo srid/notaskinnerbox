@@ -11,14 +11,13 @@
 
 
 (defroutes main-routes
-  ; (GET "/" [] (index-page "stackoverflow.com" "" 7))
-  (GET "/" [] view-digest)
+  (GET "/" [] (view-digest "stackoverflow.com" "" 7))
   (GET ["/se/:site", :site #"[a-z\.]+"] [site]
-       (index-page site "" 7))
+       (view-digest site "" 7))
   (GET ["/se/:site/:n", :site #"[a-z\.]+"] [site tag n]
-       (index-page site "" (. Integer parseInt n)))
+       (view-digest site "" (. Integer parseInt n)))
   (GET ["/se/:site/:n/:tag", :site #"[a-z\.]+"] [site tag n]
-       (index-page site tag (. Integer parseInt n)))
+       (view-digest site tag (. Integer parseInt n)))
 
   (route/resources "/")
   (route/not-found "Page not found"))
