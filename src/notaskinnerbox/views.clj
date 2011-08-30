@@ -1,9 +1,17 @@
 (ns notaskinnerbox.views
-  (:require [notaskinnerbox.stackexchange :as sx])
-  (:use [hiccup core page-helpers])
+  (:require [notaskinnerbox.stackexchange :as sx]
+            [net.cgrand.enlive-html :as html])
+  (:use [hiccup core page-helpers]
+        [ring.util.response :only [response]])
   (:import [java.text SimpleDateFormat]))
 
 
+(defn render [t]
+  (apply str t))
+
+(def render-to-response
+  (comp response render))
+  
 (defn- item-url [item site]
   (str "http://" site "/questions/"
        (:question_id item)))
@@ -18,6 +26,20 @@
   (str "weekly " site
        (if (not (= tag "")) (str " [" tag "] "))
        (if (> n 0) (str " (" n " days)"))))
+
+
+(html/deftemplate layout
+  "notaskinnerbox/views/layout.html"
+  [ctx]
+
+  [:.title]
+  (html/content (:title ctx)))
+
+
+(defn index-page
+  [site tag n]
+  (render-to-response (layout {:title "Test title"})))
+  
 
 
 (defn base-page
@@ -40,7 +62,7 @@
       [:a {:href "https://github.com/srid/notaskinnerbox"} "on github"]]]))
   
 
-(defn index-page [site tag n]
+(defn index-pageOLD [site tag n]
   (base-page
    (page-title site tag n)
    (for [item (sx/top-posts site tag n)]
@@ -50,4 +72,3 @@
         [:span {:class "meta"}
          [:span " " [:b (:score item)] " votes; "]
          [:span [:time {:datetime date :pubDate "pubDate"} date]]]]))))
-   
