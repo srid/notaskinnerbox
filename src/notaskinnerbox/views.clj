@@ -28,17 +28,14 @@
        (if (> n 0) (str " (" n " days)"))))
 
 
-(html/deftemplate layout
-  "notaskinnerbox/views/layout.html"
-  [ctx]
-
-  [:.title]
-  (html/content (:title ctx)))
+(html/deftemplate digest "notaskinnerbox/views/digest.html"
+  [{:keys [title]}]
+  [:.title] (html/content title))
 
 
 (defn index-page
   [site tag n]
-  (render-to-response (layout {:title "Test title"})))
+  (render-to-response (digest {:title "Test title"})))
   
 
 
