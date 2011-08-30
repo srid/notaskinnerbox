@@ -28,16 +28,39 @@
        (if (> n 0) (str " (" n " days)"))))
 
 
-(html/deftemplate digest "notaskinnerbox/views/digest.html"
-  [{:keys [title]}]
-  [:.title] (html/content title))
+(html/deftemplate layout "notaskinnerbox/views/layout.html" [{:keys [title]} content]
+  [:.page-title] (html/content title)
+  [:#content]    (html/content content))
 
 
-(defn index-page
-  [site tag n]
-  (render-to-response (digest {:title "Test title"})))
-  
+(html/defsnippet digest "notaskinnerbox/views/digest.html" [:body :> html/any-node]
+  [{:keys [site posts]}]
+  [:article] (html/clone-for [{:keys [title score question_id creation_date]} posts]
+                        [:span.title]     (html/content
+                                          {:tag :a, :attrs {:href (str "http://" site "/questions/"
+                                                                       question_id)},
+                                           :content [title]})
+                        [:span.meta :span.score] (html/content (str score))
+                        [:span.meta :time] (html/content (format-date creation_date))))
 
+(defn view-digest
+  [r]
+  (->> (digest {:site "stackoverflow.com" :posts (sx/top-posts "stackoverflow.com" "" 7)})
+       (layout {:title "Weekly Stackoverflow"})
+       response))
+
+
+
+(defn index-pageOLD [site tag n]
+  (base-page
+   (page-title site tag n)
+   (for [item (sx/top-posts site tag n)]
+     (let [date (format-date (:creation_date item))]
+       [:article
+        [:a {:href (item-url item site)} (:title item)]
+        [:span {:class "meta"}
+         [:span " " [:b (:score item)] " votes; "]
+         [:span [:time {:datetime date :pubDate "pubDate"} date]]]]))))
 
 (defn base-page
   [title body]
@@ -58,14 +81,3 @@
      [:footer "caffeinated play with clojure "
       [:a {:href "https://github.com/srid/notaskinnerbox"} "on github"]]]))
   
-
-(defn index-pageOLD [site tag n]
-  (base-page
-   (page-title site tag n)
-   (for [item (sx/top-posts site tag n)]
-     (let [date (format-date (:creation_date item))]
-       [:article
-        [:a {:href (item-url item site)} (:title item)]
-        [:span {:class "meta"}
-         [:span " " [:b (:score item)] " votes; "]
-         [:span [:time {:datetime date :pubDate "pubDate"} date]]]]))))

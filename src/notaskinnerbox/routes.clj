@@ -11,7 +11,8 @@
 
 
 (defroutes main-routes
-  (GET "/" [] (index-page "stackoverflow.com" "" 7))
+  ; (GET "/" [] (index-page "stackoverflow.com" "" 7))
+  (GET "/" [] view-digest)
   (GET ["/se/:site", :site #"[a-z\.]+"] [site]
        (index-page site "" 7))
   (GET ["/se/:site/:n", :site #"[a-z\.]+"] [site tag n]
