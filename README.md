@@ -3,8 +3,8 @@
 This is my first Clojure project. It was originally meant to be a generic
 version of [weekly reddit](http://weeklyreddit.appspot.com/) (which I wrote
 using Python and deployed to App Engine) -- the idea is to be sent a weekly
-digest of any frequently updating site. I wanted to do this for Hacker News and
-stackoverflow.com, for a start.
+digest of any frequently updating site. Initially, I wanted to do this for
+Hacker News and stackoverflow.com.
 
 At its present state, "weekly stackoverflow" is almost implemented. When I first
 heard of [StackExchange newsletters](http://stackexchange.com/newsletters/), my
@@ -18,9 +18,9 @@ This is a web application and you can run it using:
     $ lein ring server  # have you run `lein deps` first?
 
 The default page gives you the top posts at stackoverflow.com since last
-week. To load an arbitrary StackExchange site, go to URL /se/<sitedomain>; eg:
-`/se/skeptics.stackexchange.com`. Further, URL format accepts tagname and number
-of days; see routes.clj for details.
+week. To view an arbitrary StackExchange site, go to URL /se/<sitedomain>; eg:
+`/se/skeptics.stackexchange.com`. Further, the URL format optionally accepts a
+tagname and the number of days; see `routes.clj` for details.
 
 The app uses Ring, Compojure and Enlive. It can be seemlesly deployed to Heroku
 or Stackato.
@@ -39,14 +39,14 @@ To retrieve the links directly from the command line:
 
 ## What's in the name?
 
-Sinner Box refers to the [operant
+Skinner Box refers to the [operant
 conditioning](http://en.wikipedia.org/wiki/Operant_conditioning) chamber used to
 train rats. I likened the conditioning to us humans mindlessly clicking links
-(or pressing levers) to feel a spurt of novelty (or satisfying hunger). "Fast
+(or pressing the lever) to feel a spurt of novelty (or satisfying hunger). "Fast
 news", it seems, has conditioned us to seek this behaviour in ever greater
-intensity. This concept is widely known as [Information
+intensity. This concept is widely known as [information
 overload](http://en.wikipedia.org/wiki/Information_overload), but that only
-deflects attention (of the addict) away from his/her psychologicaly behaviour
+deflects attention (of the addict) away from the psychological behaviour
 (addiction).
 
 ## TODO
