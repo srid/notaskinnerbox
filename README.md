@@ -11,6 +11,8 @@ heard of [StackExchange newsletters](http://stackexchange.com/newsletters/), my
 enthusiasm for this project began withering away, but I intend to continue
 learning Clojure using some other project.
 
+![Screenshot](http://i.imgur.com/R0jN9.png "Screenshot of the web app showing stackoverflow.com digest")
+
 ## Usage
 
 This is a web application and you can run it using:
