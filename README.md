@@ -1,15 +1,28 @@
 # notaskinnerbox
 
+## History & Status
+
 This is my first Clojure project. It was originally meant to be a generic
 version of [weekly reddit](http://weeklyreddit.appspot.com/) (which I wrote
 using Python and deployed to App Engine) -- the idea is to be sent a weekly
 digest of any frequently updating site. Initially, I wanted to do this for
 Hacker News and stackoverflow.com.
 
-At its present state, "weekly stackoverflow" is almost implemented. When I first
-heard of [StackExchange newsletters](http://stackexchange.com/newsletters/), my
-enthusiasm for this project began withering away, but I intend to continue
-learning Clojure using some other project.
+At its present state, "weekly stackoverflow" is mostly implemented but still not
+ready for public use.
+
+Although my enthusiasm for this project began withering away when I first heard
+of [StackExchange newsletters](http://stackexchange.com/newsletters/), after
+actually *reading* their newsletter for a couple of weeks, I came to realize its
+pain points:
+
+* I want RSS, not Inbox spam
+* I want to filter questions by specific "tag"
+* I may want a monthly, instead of weekly, digest
+
+These are not possible with StackExchange newsletters. Furthermore, I am still
+interested in creating a weekly digest for Hacker News. Consequently, my interest
+on this project came back to full force.
 
 ![Screenshot](http://i.imgur.com/R0jN9.png "Screenshot of the web app showing stackoverflow.com digest")
 
@@ -53,9 +66,13 @@ deflects attention (of the addict) away from the psychological behaviour
 
 ## TODO
 
-* Cache requests to StackExchange API
+* Cache API requests
+* Weekly cron tasks
+* Database
 * RSS!
 * UI to select StackExchange site
+* Hacker News
+* Reddit?
 
 ## License
 
