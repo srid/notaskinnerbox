@@ -76,4 +76,4 @@ deflects attention (of the addict) away from the psychological behaviour
 
 ## License
 
-MIT
+[Eclipse Public License 1.0](http://opensource.org/licenses/eclipse-1.0.php)
