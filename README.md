@@ -33,9 +33,13 @@ Check out the source:
     $ git clone https://github.com/srid/notaskinnerbox.git
     $ cd notaskinnerbox
     
+Download dependencies: 
+
+    $ lein deps
+    
 This is a web application and you can run it using:
 
-    $ lein ring server  # have you run `lein deps` first?
+    $ lein ring server
 
 The default page gives you the top posts at stackoverflow.com since last
 week. To view an arbitrary StackExchange site, go to URL /se/<sitedomain>; eg:
