@@ -28,6 +28,11 @@ on this project came back to full force.
 
 ## Usage
 
+Check out the source: 
+
+    $ git clone https://github.com/srid/notaskinnerbox.git
+    $ cd notaskinnerbox
+    
 This is a web application and you can run it using:
 
     $ lein ring server  # have you run `lein deps` first?
