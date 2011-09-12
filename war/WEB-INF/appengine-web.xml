@@ -3,7 +3,7 @@
   <application>notaskinnerbox</application>
   <version>1</version>
   <static-files>
-    <include path="/resources/**.css" />
+    <include path="/resources/**" />
   </static-files>
   <resource-files/>
 
