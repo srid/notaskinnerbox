@@ -11,7 +11,7 @@
 
 
 (defroutes app-handler
-  (GET "/" [] "hello")
+  (GET "/" [] (view-digest "stackoverflow.com" "" 7))
   (route/resources "/")
   (route/not-found "Page not found"))
   
