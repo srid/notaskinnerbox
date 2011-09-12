@@ -1,5 +1,6 @@
 (ns notaskinnerbox.stackexchange
-  (:use [clojure.string :only (join split)]
+  (:use notaskinnerbox.utils
+        [clojure.string :only (join split)]
         [clojure.data.json :only (read-json)]
         [clojure.contrib.io :only (to-byte-array)])
   (:import [java.util.zip GZIPInputStream]
@@ -58,13 +59,18 @@ representation of text."
 
 
 (defn- curl-gzip
-  "Fetch the given URL and always gzip-decompress the response"
+  "Fetch the gzip-encoded URL
+
+  Don't gzip-decode on Google App Engine as Google's servers automatically does
+  that."
   [url]
-  "cat an URL as gzip stream"
   (println url)
-  (with-open
-      [in (-> url (URL.) (.openConnection) (.getInputStream) (GZIPInputStream.))]
-    (to-byte-array in)))
+  (let [decompressor (if (running-on-google?)
+                       identity
+                       #(GZIPInputStream. %))]
+    (with-open
+      [in (-> url (URL.) (.openConnection) (.getInputStream) decompressor)]
+    (to-byte-array in))))
 
 
 (defn- convert-timestamps

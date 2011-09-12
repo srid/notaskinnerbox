@@ -19,12 +19,11 @@
        (if (not (= tag "")) (str " [" tag "] "))
        (if (> n 0) (str " (" n " days)"))))
 
-  
-(html/deftemplate layout "notaskinnerbox/views/layout.html" [{:keys [title]} content]
+(html/deftemplate layout "views/layout.html" [{:keys [title]} content]
   [:.page-title] (html/content title)
   [:#content]    (html/content content))
 
-(html/defsnippet digest "notaskinnerbox/views/digest.html" [:body :> html/any-node]
+(html/defsnippet digest "views/digest.html" [:body :> html/any-node]
   [site posts]
   [:article] (html/clone-for
               [{:keys [title score question_id creation_date] :as item} posts]

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+
+  <application>notaskinnerbox</application>
+  <version>1</version>
+  <static-files>
+    <include path="/resources/**" />
+  </static-files>
+  <resource-files/>
+
+  <threadsafe>true</threadsafe>
+
+</appengine-web-app>

@@ -1,1 +1,1 @@
-web: lein run -m notaskinnerbox.routes
+web: lein run -m notaskinnerbox.heroku
