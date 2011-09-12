@@ -23,7 +23,7 @@
   (route/not-found "Page not found"))
 
 
-(def app
+(def app-handler
   (-> (handler/site main-routes)
       (wrap-stacktrace)
       (wrap-base-url)))
@@ -35,4 +35,4 @@
               (get (System/getenv) "VCAP_APP_PORT"
                    (get (System/getenv) "PORT" "8080")))]
     (println (str "Starting at " port))
-    (run-jetty app {:port port})))
+    (run-jetty app-handler {:port port})))
