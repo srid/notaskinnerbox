@@ -1,16 +1,14 @@
 (ns notaskinnerbox.routes
   (:use compojure.core
         notaskinnerbox.views
-        
-        ;; ring.middleware.stacktrace
+        ring.middleware.stacktrace
         [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.route :as route]
             ; [compojure.handler :as handler]
             [compojure.response :as response]
             [notaskinnerbox.stackexchange :as sx]))
 
-
-(defroutes app-handler
+(defroutes app-routes
   (GET "/" [] (view-digest "stackoverflow.com" "" 7))
   (GET "/" [] (view-digest "stackoverflow.com" "" 7))
   (GET ["/se/:site", :site #"[a-z\.]+"] [site]
@@ -22,9 +20,8 @@
   (route/resources "/")
   (route/not-found "Page not found"))
 
-
-(comment def app-handler
-  (-> (handler/site main-routes)
-      ;(wrap-stacktrace)
-      (wrap-base-url)))
+(def app-handler
+  (-> app-routes  ;; TODO: get compojure.handler/site working on GAE
+      wrap-stacktrace
+      wrap-base-url))
 

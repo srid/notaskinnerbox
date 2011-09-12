@@ -73,6 +73,10 @@ overload](http://en.wikipedia.org/wiki/Information_overload), but that only
 deflects attention (of the addict) away from the psychological behaviour
 (addiction).
 
+## Deploying to production
+
+This app can be deployed to Heroku, Stackato or Google App Engine.
+
 ## TODO
 
 * Cache API requests
