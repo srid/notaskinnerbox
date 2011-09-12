@@ -2,5 +2,8 @@
   (:use [clojure.contrib.string :only (substring?)]))
 
 (defn running-on-google? []
-  (substring? "Google App Engine"
-              (get (System/getenv) "SERVER_SOFTWARE" "")))
+  "Return True if we are running on Google's production servers."
+  (let [gae-env (System/getProperty "com.google.appengine.runtime.environment")]
+    (println "runtime: " gae-env)
+    (and gae-env
+         (= gae-env "Production"))))
