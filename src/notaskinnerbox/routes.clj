@@ -1,7 +1,7 @@
 (ns notaskinnerbox.routes
   (:use compojure.core
         notaskinnerbox.views
-        ;; ring.adapter.jetty
+        
         ;; ring.middleware.stacktrace
         [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.route :as route]
@@ -28,11 +28,3 @@
       ;(wrap-stacktrace)
       (wrap-base-url)))
 
-
-;; for heroku/stackato
-(comment defn -main []
-  (let [port (Integer/parseInt
-              (get (System/getenv) "VCAP_APP_PORT"
-                   (get (System/getenv) "PORT" "8080")))]
-    (println (str "Starting at " port))
-    (run-jetty app-handler {:port port})))
