@@ -49,7 +49,7 @@ tagname and the number of days; see `routes.clj` for details.
 The app uses Ring, Compojure and Enlive. It can be seemlesly deployed to Heroku
 or Stackato.
 
-## Command line:
+### Command line:
 
 To retrieve the links directly from the command line:
 
@@ -60,6 +60,35 @@ To retrieve the links directly from the command line:
       http://programmers.stackexchange.com/questions/32425
     [...]
     $
+
+## Developing
+
+The slow way:
+
+    lein appengine-prepare
+    dev_appserver.sh war
+
+However, using the REPL allows you to quickly restart the server after file
+edits:
+
+    cake repl  # or `lein repl`
+    user=> (require '[appengine-magic.core :as ae])
+    nil
+    user=> (use '[notaskinnerbox.app_servlet :only (notaskinnerbox-app)])
+    nil
+    user=> (ae/serve notaskinnerbox-app)
+    [...]
+    2011-09-12 18:32:42.015:INFO::Started SocketConnector@0.0.0.0:8080
+
+Visit <http://localhost:8080/>. When you edit a file (eg: `views.clj`), do the
+following to restart the running server:
+
+    user=> (use :reload-all 'notaskinnerbox.views)
+    user=> (ae/serve notaskinnerbox-app)
+
+## Deploying to production
+
+This app can be deployed to Heroku, Stackato or Google App Engine.
 
 ## What's in the name?
 
@@ -72,10 +101,6 @@ intensity. This concept is widely known as [information
 overload](http://en.wikipedia.org/wiki/Information_overload), but that only
 deflects attention (of the addict) away from the psychological behaviour
 (addiction).
-
-## Deploying to production
-
-This app can be deployed to Heroku, Stackato or Google App Engine.
 
 ## TODO
 

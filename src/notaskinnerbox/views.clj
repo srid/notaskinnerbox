@@ -15,7 +15,8 @@
   (.format (SimpleDateFormat.  "yyyy-MM-dd") date))
 
 (defn- page-title [site tag n]
-  (str "weekly " site
+  (str site
+       " digest "
        (if (not (= tag "")) (str " [" tag "] "))
        (if (> n 0) (str " (" n " days)"))))
 
