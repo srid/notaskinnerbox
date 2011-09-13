@@ -80,11 +80,14 @@ edits:
     [...]
     2011-09-12 18:32:42.015:INFO::Started SocketConnector@0.0.0.0:8080
 
-Visit <http://localhost:8080/>. When you edit a file (eg: `views.clj`), do the
-following to restart the running server:
+Visit <http://localhost:8080/>. Whenever you edit a file, (eg: `views.clj`),
+remember to recompile it in the REPL:
 
     user=> (use :reload-all 'notaskinnerbox.views)
-    user=> (ae/serve notaskinnerbox-app)
+    user=> (ae/serve notaskinnerbox-app)  # optionally restart
+    
+If you use Emacs, you can get a REPL within Emacs by first running `cake swank`
+on the shell and then doing `M-x slime-connect` in Emacs.
 
 ## Deploying to production
 
