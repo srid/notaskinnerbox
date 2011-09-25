@@ -7,23 +7,19 @@
            [java.sql Timestamp]
            [java.util Date]))
 
-
 (defn- now
   "Return current timestamp in seconds"
   []
   (long (/ (-> (Date.) (.getTime)) 1000)))
 
-
 (defn- days->seconds
   [n]
   (* n 60 60 24))
-
 
 (defn- str2
   "A version of str that converts keywords leaving off the colon"
   [o]
   (if (keyword? o) (name o) (str o)))
-
 
 (defn- url-encode
   "Wrapper around java.net.URLEncoder returning a (UTF-8) URL encoded
@@ -31,12 +27,10 @@ representation of text."
   [text]
   (URLEncoder/encode (str2 text) "UTF-8"))
 
-
 (defn- encode-body-map
   "Turns a map into a URL-encoded string suitable for a request body."
   [body]
   (join "&" (map #(join "=" (map url-encode %)) body)))
-
 
 (defn- top-posts-url
   "Return the API url for top votted posts from `site` tagged `tag` during last
@@ -56,7 +50,6 @@ representation of text."
                   {:fromdate (- end-day (days->seconds n))
                    :todate end-day}))))))
 
-
 (defn- curl-gzip
   "Fetch the gzip-encoded URL
 
@@ -71,7 +64,6 @@ representation of text."
       [in (-> url (URL.) (.openConnection) (.getInputStream) decompressor)]
       (slurp in))))
 
-
 (defn- convert-timestamps
   "Convert numeric timestamps in JSON into java.sql.Timestamp"
   [json]
@@ -79,16 +71,13 @@ representation of text."
                           #(Timestamp. (* % 1000))))
        json))
 
-
 (defn- parse-questions-json
   [j]
   (convert-timestamps (:questions j)))
 
-
 (defn top-posts-raw
   [site tag n]
    (curl-gzip (top-posts-url site tag n)))
-
 
 (defn top-posts
   [site tag n]

@@ -2,7 +2,6 @@
   (:require [notaskinnerbox.stackexchange :as sx])
   (:use [clojure.tools.cli :only (cli required optional)]))
 
-
 (defn parse-args [args]
   (cli args
        (optional ["-s", "--site", "StackExchange site to operate upon"
@@ -14,7 +13,6 @@
        (optional ["-n", "--days", "Show top posts from last N days" :default 7]
                  #(Integer. %))
        (optional ["--json", "Dump JSON response from server" :default false])))
-
 
 (defn -main [& args]
   (let [opts (parse-args args)]
