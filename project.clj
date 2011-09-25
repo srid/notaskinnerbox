@@ -9,4 +9,4 @@
   :dev-dependencies [[lein-ring "0.4.5"]
                      [appengine-magic "0.4.4"]]
   :ring {:handler notaskinnerbox.routes/app-handler}
-  :main notaskinnerbox.heroku)
+  :main notaskinnerbox.deploy)

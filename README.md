@@ -71,23 +71,21 @@ The slow way:
 However, using the REPL allows you to quickly restart the server after file
 edits:
 
-    cake repl  # or `lein repl`
-    user=> (require '[appengine-magic.core :as ae])
-    nil
-    user=> (use '[notaskinnerbox.app_servlet :only (notaskinnerbox-app)])
-    nil
-    user=> (ae/serve notaskinnerbox-app)
-    [...]
-    2011-09-12 18:32:42.015:INFO::Started SocketConnector@0.0.0.0:8080
+    cake swank
+    # M-x slime-connect from Emacs
+    # Visit deploy.clj and C-c C-k
+    # In the REPL:
+    user> (deploy/ae-develop)
+    Launching server at http://localhost:8080/
 
 Visit <http://localhost:8080/>. Whenever you edit a file, (eg: `views.clj`),
 remember to recompile it in the REPL:
 
-    user=> (use :reload-all 'notaskinnerbox.views)
-    user=> (ae/serve notaskinnerbox-app)  # optionally restart
-    
-If you use Emacs, you can get a REPL within Emacs by first running `cake swank`
-on the shell and then doing `M-x slime-connect` in Emacs.
+    user> (deploy/ae-develop 'notaskinnerbox.views)
+    Launching server at http://localhost:8080/
+
+`ae-develop` is just an utility function that reloads the given namespaces and
+relaunches the App Engine dev server.
 
 ## Deploying to production
 
