@@ -91,7 +91,10 @@ on the shell and then doing `M-x slime-connect` in Emacs.
 
 ## Deploying to production
 
-This app can be deployed to Heroku, Stackato or Google App Engine.
+This app can be deployed to Heroku, Stackato or Google App Engine. For App Engine,
+
+    lein appengine-prepare
+    appcfg.sh update war
 
 ## What's in the name?
 

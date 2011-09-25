@@ -1,5 +1,4 @@
-(ns notaskinnerbox.utils
-  (:use [clojure.contrib.string :only (substring?)]))
+(ns notaskinnerbox.utils)
 
 (defn running-on-google? []
   "Return True if we are running on Google's production servers."

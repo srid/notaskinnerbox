@@ -1,8 +1,7 @@
 (ns notaskinnerbox.stackexchange
   (:use notaskinnerbox.utils
         [clojure.string :only (join split)]
-        [clojure.data.json :only (read-json)]
-        [clojure.contrib.io :only (to-byte-array)])
+        [clojure.data.json :only (read-json)])
   (:import [java.util.zip GZIPInputStream]
            [java.net URL URLEncoder]
            [java.sql Timestamp]
@@ -70,7 +69,7 @@ representation of text."
                        #(GZIPInputStream. %))]
     (with-open
       [in (-> url (URL.) (.openConnection) (.getInputStream) decompressor)]
-    (to-byte-array in))))
+      (slurp in))))
 
 
 (defn- convert-timestamps
@@ -88,7 +87,7 @@ representation of text."
 
 (defn top-posts-raw
   [site tag n]
-   (slurp (curl-gzip (top-posts-url site tag n))))
+   (curl-gzip (top-posts-url site tag n)))
 
 
 (defn top-posts
